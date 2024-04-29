@@ -74,7 +74,6 @@ class PlattSMO:
             if abs(alphaJOld-self.alpha[j]) < 0.00001:
                 return 0
             self.alpha[i] +=  self.label[i]*self.label[j]*(alphaJOld-self.alpha[j])
-            self.updateEK(i)
             b1 = self.b - Ei - self.label[i] * self.K[i, i] * (self.alpha[i] - alphaIOld) - \
                  self.label[j] * self.K[i, j] * (self.alpha[j] - alphaJOld)
             b2 = self.b - Ej - self.label[i] * self.K[i, j] * (self.alpha[i] - alphaIOld) - \
@@ -85,6 +84,7 @@ class PlattSMO:
                 self.b = b2
             else:
                 self.b = (b1 + b2) /2.0
+            self.updateEK(i)
             return 1
         else:
             return 0
